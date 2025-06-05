@@ -43,14 +43,14 @@ const VendorFilters = ({ filters, onFiltersChange }: VendorFiltersProps) => {
           {/* Category Filter */}
           <div className="flex-1 min-w-[200px]">
             <Select
-              value={filters.category || ''}
-              onValueChange={(value) => updateFilter('category', value || undefined)}
+              value={filters.category || 'all'}
+              onValueChange={(value) => updateFilter('category', value === 'all' ? undefined : value)}
             >
               <SelectTrigger>
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 {vendorCategories.map((category) => (
                   <SelectItem key={category.id} value={category.id}>
                     {category.icon} {category.name}
@@ -63,14 +63,14 @@ const VendorFilters = ({ filters, onFiltersChange }: VendorFiltersProps) => {
           {/* Service Area Filter */}
           <div className="flex-1 min-w-[200px]">
             <Select
-              value={filters.serviceArea || ''}
-              onValueChange={(value) => updateFilter('serviceArea', value || undefined)}
+              value={filters.serviceArea || 'all'}
+              onValueChange={(value) => updateFilter('serviceArea', value === 'all' ? undefined : value)}
             >
               <SelectTrigger>
                 <SelectValue placeholder="All Areas" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Areas</SelectItem>
+                <SelectItem value="all">All Areas</SelectItem>
                 {serviceAreas.map((area) => (
                   <SelectItem key={area} value={area}>
                     {area}
