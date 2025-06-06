@@ -1,29 +1,20 @@
 
 import { useEffect, useRef } from 'react';
-import { Chart, ArcElement, Tooltip, Legend, PieController } from 'chart.js';
+import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { BudgetData } from '@/types/budget';
 
-Chart.register(ArcElement, Tooltip, Legend, PieController);
+Chart.register(...registerables);
 
 interface BudgetChartProps {
   budgetData: BudgetData;
   selectedCategory: string | null;
-  onCategorySelect: (category: string | null) => void;
+  onCategorySelect: (category: string) => void;
+  onBackToMain: () => void;
 }
 
-const BudgetChart = ({ budgetData, selectedCategory, onCategorySelect }: BudgetChartProps) => {
+const BudgetChart = ({ budgetData, selectedCategory, onCategorySelect, onBackToMain }: BudgetChartProps) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
-  const chartInstance = useRef<Chart | null>(null);
-
-  const generateColors = (count: number) => {
-    const colors = [];
-    const baseHues = [330, 300, 270, 350, 320];
-    for (let i = 0; i < count; i++) {
-      const hue = baseHues[i % baseHues.length];
-      colors.push(`hsl(${hue}, 80%, 80%)`);
-    }
-    return colors;
-  };
+  const chartInstanceRef = useRef<Chart | null>(null);
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -31,24 +22,32 @@ const BudgetChart = ({ budgetData, selectedCategory, onCategorySelect }: BudgetC
     const ctx = chartRef.current.getContext('2d');
     if (!ctx) return;
 
-    let labels: string[] = [];
-    let data: number[] = [];
+    // Destroy existing chart
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.destroy();
+    }
+
+    let labels: string[];
+    let data: number[];
 
     if (selectedCategory === null) {
+      // Show main categories
       labels = Object.keys(budgetData);
       data = labels.map(cat => 
         budgetData[cat].reduce((sum, item) => sum + item.cost, 0)
       );
-    } else if (budgetData[selectedCategory]) {
-      labels = budgetData[selectedCategory].map(item => item.name);
-      data = budgetData[selectedCategory].map(item => item.cost);
+    } else {
+      // Show subcategories
+      if (budgetData[selectedCategory]) {
+        labels = budgetData[selectedCategory].map(item => item.name);
+        data = budgetData[selectedCategory].map(item => item.cost);
+      } else {
+        labels = [];
+        data = [];
+      }
     }
 
-    if (chartInstance.current) {
-      chartInstance.current.destroy();
-    }
-
-    chartInstance.current = new Chart(ctx, {
+    const config: ChartConfiguration<'pie', number[], string> = {
       type: 'pie',
       data: {
         labels: labels,
@@ -66,17 +65,17 @@ const BudgetChart = ({ budgetData, selectedCategory, onCategorySelect }: BudgetC
             position: 'top',
             labels: {
               font: { family: "'Inter', sans-serif", size: 14 },
-              color: '#3a1e2a'
+              color: '#374151'
             }
           },
           tooltip: {
             callbacks: {
               label: function(context) {
                 const label = context.label || '';
-                const value = context.raw as number || 0;
-                const total = (context.dataset.data as number[]).reduce((a, b) => a + b, 0);
-                const percentage = total ? ((value / total) * 100).toFixed(1) : '0';
-                return `${label}: $${value.toFixed(2)} (${percentage}%)`;
+                const value = context.raw || 0;
+                const total = context.dataset.data.reduce((a, b) => (a as number) + (b as number), 0) as number;
+                const percentage = total ? ((value as number / total) * 100).toFixed(1) : 0;
+                return `${label}: $${(value as number).toFixed(2)} (${percentage}%)`;
               }
             }
           }
@@ -88,26 +87,38 @@ const BudgetChart = ({ budgetData, selectedCategory, onCategorySelect }: BudgetC
           }
         }
       }
-    });
+    };
+
+    chartInstanceRef.current = new Chart(ctx, config);
 
     return () => {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
       }
     };
   }, [budgetData, selectedCategory, onCategorySelect]);
+
+  const generateColors = (count: number) => {
+    const colors = [];
+    const baseHues = [330, 300, 270, 350, 320];
+    for (let i = 0; i < count; i++) {
+      const hue = baseHues[i % baseHues.length];
+      colors.push(`hsl(${hue}, 80%, 80%)`);
+    }
+    return colors;
+  };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
       {selectedCategory && (
         <button
-          onClick={() => onCategorySelect(null)}
+          onClick={onBackToMain}
           className="mb-4 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
         >
           Back to Main Categories
         </button>
       )}
-      <canvas ref={chartRef} />
+      <canvas ref={chartRef}></canvas>
     </div>
   );
 };

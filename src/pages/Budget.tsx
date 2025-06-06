@@ -1,127 +1,112 @@
 
-import { useState, useEffect } from 'react';
-import { Heart } from 'lucide-react';
-import { BudgetData, BudgetItem } from '@/types/budget';
-import BudgetInput from '@/components/BudgetInput';
+import { useState } from 'react';
+import { BudgetData } from '@/types/budget';
 import BudgetChart from '@/components/BudgetChart';
+import BudgetInput from '@/components/BudgetInput';
 import BudgetCategory from '@/components/BudgetCategory';
 
 const Budget = () => {
   const [budgetData, setBudgetData] = useState<BudgetData>({});
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const addBudgetItem = (category: string, item: BudgetItem) => {
+  const addBudgetItem = (category: string, subcategory: string, cost: number) => {
     setBudgetData(prev => ({
       ...prev,
-      [category]: [...(prev[category] || []), item]
+      [category]: [
+        ...(prev[category] || []),
+        { name: subcategory, cost }
+      ]
     }));
-    
-    // Add heart animation effect
-    createHeartAnimation();
   };
 
-  const addItemToCategory = (category: string, item: BudgetItem) => {
-    addBudgetItem(category, item);
+  const addSubcategory = (category: string, subcategory: string, cost: number) => {
+    addBudgetItem(category, subcategory, cost);
   };
 
-  const createHeartAnimation = () => {
-    const heart = document.createElement('div');
-    heart.textContent = '💖';
-    heart.className = 'fixed pointer-events-none text-2xl text-wedding-pink z-50 animate-pulse';
-    heart.style.left = `${Math.random() * window.innerWidth}px`;
-    heart.style.top = `${window.innerHeight - 100}px`;
-    heart.style.animation = 'float 2s ease-out forwards';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 2000);
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
   };
 
-  const totalBudget = Object.values(budgetData).flat().reduce((sum, item) => sum + item.cost, 0);
+  const handleBackToMain = () => {
+    setSelectedCategory(null);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-wedding-blush to-pink-50">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Heart className="h-10 w-10 text-wedding-pink" />
-            <h1 className="text-4xl font-display font-bold wedding-text-gradient">
-              Your Dream Wedding Budget
-            </h1>
-            <Heart className="h-10 w-10 text-wedding-pink" />
-          </div>
-          <p className="text-lg text-gray-600 mb-2">
-            Plan your perfect day with love and style!
-          </p>
-          {totalBudget > 0 && (
-            <p className="text-2xl font-semibold text-wedding-pink">
-              Total Budget: ${totalBudget.toFixed(2)}
-            </p>
-          )}
-        </div>
-
-        {/* Budget Input */}
-        <BudgetInput onAddItem={addBudgetItem} />
-
-        {/* Sponsored Ad */}
-        <div className="bg-wedding-blush p-4 rounded-lg text-center mb-6">
-          <p className="text-gray-700">
-            Sponsored: Discover perfect venues at{' '}
-            <a 
-              href="https://www.weddingwire.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-wedding-pink hover:underline"
-            >
-              WeddingWire
-            </a>!
-          </p>
-        </div>
-
-        {/* Chart */}
-        {Object.keys(budgetData).length > 0 && (
-          <BudgetChart
-            budgetData={budgetData}
-            selectedCategory={selectedCategory}
-            onCategorySelect={setSelectedCategory}
-          />
-        )}
-
-        {/* Category Sections */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
-          {Object.entries(budgetData).map(([category, items]) => (
-            <BudgetCategory
-              key={category}
-              category={category}
-              items={items}
-              onAddItem={(item) => addItemToCategory(category, item)}
-              onCategoryClick={() => setSelectedCategory(category)}
-            />
-          ))}
-        </div>
-
-        {/* Another Sponsored Ad */}
-        <div className="bg-wedding-blush p-4 rounded-lg text-center mt-8">
-          <p className="text-gray-700">
-            Sponsored: Capture your day with{' '}
-            <a 
-              href="https://www.theknot.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-wedding-pink hover:underline"
-            >
-              The Knot
-            </a>!
-          </p>
-        </div>
-      </div>
-
-      <style jsx>{`
+    <>
+      <style>{`
+        body {
+          background: linear-gradient(to bottom, #fef7f8, #ffdce5);
+          min-height: 100vh;
+        }
+        
+        .heart-animation {
+          position: fixed;
+          pointer-events: none;
+          font-size: 20px;
+          color: #f06292;
+          animation: float 2s ease-out forwards;
+          z-index: 1000;
+        }
+        
         @keyframes float {
           0% { transform: translateY(0); opacity: 1; }
           100% { transform: translateY(-100px); opacity: 0; }
         }
+        
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
       `}</style>
-    </div>
+      
+      <div className="min-h-screen bg-gradient-to-b from-rose-50 to-pink-100">
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-wedding-pink mb-4">
+              Your Dream Wedding Budget
+            </h1>
+            <p className="text-lg text-gray-600">
+              Plan your perfect day with love and style!
+            </p>
+          </div>
+
+          <BudgetInput onAddItem={addBudgetItem} />
+
+          <div className="mb-8 p-4 bg-pink-100 rounded-lg text-center">
+            <p className="text-wedding-pink">
+              💖 Discover perfect venues and vendors to make your dream wedding come true! 💖
+            </p>
+          </div>
+
+          <BudgetChart
+            budgetData={budgetData}
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategorySelect}
+            onBackToMain={handleBackToMain}
+          />
+
+          <div className="space-y-4">
+            {Object.keys(budgetData).map((category) => (
+              <BudgetCategory
+                key={category}
+                category={category}
+                items={budgetData[category]}
+                onAddSubcategory={addSubcategory}
+                onCategoryClick={handleCategorySelect}
+              />
+            ))}
+          </div>
+
+          <div className="mt-8 p-4 bg-pink-100 rounded-lg text-center">
+            <p className="text-wedding-pink">
+              💖 Capture your special day with the best photographers and vendors! 💖
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

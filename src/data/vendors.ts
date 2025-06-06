@@ -1,7 +1,7 @@
 
 import { Vendor } from '@/types/vendor';
 
-export const sampleVendors: Vendor[] = [
+export const vendors: Vendor[] = [
   {
     id: '1',
     name: 'Elegant Manor Estates',

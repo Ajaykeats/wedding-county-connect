@@ -8,10 +8,10 @@ import { Star, MapPin, Phone, Globe, Heart, ExternalLink } from 'lucide-react';
 
 interface VendorCardProps {
   vendor: Vendor;
-  onViewDetails: (vendor: Vendor) => void;
+  onClick: (vendor: Vendor) => void;
 }
 
-const VendorCard = ({ vendor, onViewDetails }: VendorCardProps) => {
+const VendorCard = ({ vendor, onClick }: VendorCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -113,7 +113,7 @@ const VendorCard = ({ vendor, onViewDetails }: VendorCardProps) => {
         {/* Action Buttons */}
         <div className="flex gap-2">
           <Button
-            onClick={() => onViewDetails(vendor)}
+            onClick={() => onClick(vendor)}
             className="flex-1 bg-wedding-pink hover:bg-wedding-rose text-white"
             size="sm"
           >
