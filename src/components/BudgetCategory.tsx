@@ -8,11 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 interface BudgetCategoryProps {
   category: string;
   items: BudgetItem[];
-  onAddItem: (item: BudgetItem) => void;
-  onCategoryClick: () => void;
+  onAddSubcategory: (category: string, subcategory: string, cost: number) => void;
+  onCategoryClick: (category: string) => void;
 }
 
-const BudgetCategory = ({ category, items, onAddItem, onCategoryClick }: BudgetCategoryProps) => {
+const BudgetCategory = ({ category, items, onAddSubcategory, onCategoryClick }: BudgetCategoryProps) => {
   const [subcategory, setSubcategory] = useState<string>('');
   const [cost, setCost] = useState<string>('');
 
@@ -27,7 +27,7 @@ const BudgetCategory = ({ category, items, onAddItem, onCategoryClick }: BudgetC
       return;
     }
 
-    onAddItem({ name: subcategoryName, cost: costValue });
+    onAddSubcategory(category, subcategoryName, costValue);
     setSubcategory('');
     setCost('');
   };
@@ -39,7 +39,7 @@ const BudgetCategory = ({ category, items, onAddItem, onCategoryClick }: BudgetC
       <CardHeader>
         <CardTitle 
           className="text-wedding-pink cursor-pointer hover:text-wedding-rose transition-colors"
-          onClick={onCategoryClick}
+          onClick={() => onCategoryClick(category)}
         >
           {category} - Total: ${total.toFixed(2)}
         </CardTitle>

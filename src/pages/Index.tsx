@@ -32,7 +32,7 @@ const Index = () => {
       }
 
       // Service area filter
-      if (filters.serviceArea && !vendor.serviceAreas.includes(filters.serviceArea)) {
+      if (filters.serviceArea && !vendor.serviceArea.includes(filters.serviceArea)) {
         return false;
       }
 

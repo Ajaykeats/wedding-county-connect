@@ -47,7 +47,7 @@ const BudgetChart = ({ budgetData, selectedCategory, onCategorySelect, onBackToM
       }
     }
 
-    const config: ChartConfiguration<'pie', number[], string> = {
+    const config: ChartConfiguration = {
       type: 'pie',
       data: {
         labels: labels,
