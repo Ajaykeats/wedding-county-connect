@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { BudgetData } from '@/types/budget';
 import BudgetChart from '@/components/BudgetChart';
+import BudgetPieChart from '@/components/BudgetPieChart';
 import BudgetInput from '@/components/BudgetInput';
 import BudgetCategory from '@/components/BudgetCategory';
 
@@ -67,7 +68,7 @@ const Budget = () => {
       `}</style>
       
       <div className="min-h-screen bg-gradient-to-b from-rose-50 to-pink-100">
-        <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="container mx-auto px-4 py-8 max-w-6xl">
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-display font-bold text-wedding-pink mb-4">
               Your Dream Wedding Budget
@@ -85,12 +86,31 @@ const Budget = () => {
             </p>
           </div>
 
-          <BudgetChart
-            budgetData={budgetData}
-            selectedCategory={selectedCategory}
-            onCategorySelect={handleCategorySelect}
-            onBackToMain={handleBackToMain}
-          />
+          {selectedCategory && (
+            <div className="mb-6">
+              <button
+                onClick={handleBackToMain}
+                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                Back to Main Categories
+              </button>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <BudgetChart
+              budgetData={budgetData}
+              selectedCategory={selectedCategory}
+              onCategorySelect={handleCategorySelect}
+              onBackToMain={handleBackToMain}
+            />
+            
+            <BudgetPieChart
+              budgetData={budgetData}
+              selectedCategory={selectedCategory}
+              onCategorySelect={handleCategorySelect}
+            />
+          </div>
 
           <div className="space-y-4">
             {Object.keys(budgetData).map((category) => (
