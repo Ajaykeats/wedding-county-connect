@@ -19,6 +19,11 @@ const Budget = () => {
     }));
   };
 
+  // Wrapper function that matches BudgetInput's expected signature
+  const handleAddItem = (category: string, item: { name: string; cost: number }) => {
+    addBudgetItem(category, item.name, item.cost);
+  };
+
   const addSubcategory = (category: string, subcategory: string, cost: number) => {
     addBudgetItem(category, subcategory, cost);
   };
@@ -72,7 +77,7 @@ const Budget = () => {
             </p>
           </div>
 
-          <BudgetInput onAddItem={addBudgetItem} />
+          <BudgetInput onAddItem={handleAddItem} />
 
           <div className="mb-8 p-4 bg-pink-100 rounded-lg text-center">
             <p className="text-wedding-pink">
