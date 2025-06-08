@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Search, Menu, X, Heart, Calculator, Users, Calendar, MapPin } from 'lucide-react';
+import { Search, Menu, X, Heart, Calculator, Users, Calendar, MapPin, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -23,9 +23,9 @@ const Header = ({
 
   const navigationItems = [
     {
-      label: 'Find Vendors',
+      label: 'Home',
       path: '/',
-      icon: Users,
+      icon: Home,
       active: isVendorPage
     },
     {
