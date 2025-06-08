@@ -1,44 +1,39 @@
-
 import { useState } from 'react';
 import { BudgetData } from '@/types/budget';
 import BudgetChart from '@/components/BudgetChart';
 import BudgetPieChart from '@/components/BudgetPieChart';
 import BudgetInput from '@/components/BudgetInput';
 import BudgetCategory from '@/components/BudgetCategory';
-
 const Budget = () => {
   const [budgetData, setBudgetData] = useState<BudgetData>({});
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
   const addBudgetItem = (category: string, subcategory: string, cost: number) => {
     setBudgetData(prev => ({
       ...prev,
-      [category]: [
-        ...(prev[category] || []),
-        { name: subcategory, cost }
-      ]
+      [category]: [...(prev[category] || []), {
+        name: subcategory,
+        cost
+      }]
     }));
   };
 
   // Wrapper function that matches BudgetInput's expected signature
-  const handleAddItem = (category: string, item: { name: string; cost: number }) => {
+  const handleAddItem = (category: string, item: {
+    name: string;
+    cost: number;
+  }) => {
     addBudgetItem(category, item.name, item.cost);
   };
-
   const addSubcategory = (category: string, subcategory: string, cost: number) => {
     addBudgetItem(category, subcategory, cost);
   };
-
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
   };
-
   const handleBackToMain = () => {
     setSelectedCategory(null);
   };
-
-  return (
-    <>
+  return <>
       <style>{`
         body {
           background: linear-gradient(to bottom, #fef7f8, #ffdce5);
@@ -73,9 +68,7 @@ const Budget = () => {
             <h1 className="text-4xl md:text-5xl font-display font-bold text-wedding-pink mb-4">
               Your Dream Wedding Budget
             </h1>
-            <p className="text-lg text-gray-600">
-              Plan your perfect day with love and style!
-            </p>
+            <p className="text-lg text-gray-600">Plan your perfect day with the right way!</p>
           </div>
 
           <BudgetInput onAddItem={handleAddItem} />
@@ -86,42 +79,20 @@ const Budget = () => {
             </p>
           </div>
 
-          {selectedCategory && (
-            <div className="mb-6">
-              <button
-                onClick={handleBackToMain}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
+          {selectedCategory && <div className="mb-6">
+              <button onClick={handleBackToMain} className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
                 Back to Main Categories
               </button>
-            </div>
-          )}
+            </div>}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <BudgetChart
-              budgetData={budgetData}
-              selectedCategory={selectedCategory}
-              onCategorySelect={handleCategorySelect}
-              onBackToMain={handleBackToMain}
-            />
+            <BudgetChart budgetData={budgetData} selectedCategory={selectedCategory} onCategorySelect={handleCategorySelect} onBackToMain={handleBackToMain} />
             
-            <BudgetPieChart
-              budgetData={budgetData}
-              selectedCategory={selectedCategory}
-              onCategorySelect={handleCategorySelect}
-            />
+            <BudgetPieChart budgetData={budgetData} selectedCategory={selectedCategory} onCategorySelect={handleCategorySelect} />
           </div>
 
           <div className="space-y-4">
-            {Object.keys(budgetData).map((category) => (
-              <BudgetCategory
-                key={category}
-                category={category}
-                items={budgetData[category]}
-                onAddSubcategory={addSubcategory}
-                onCategoryClick={handleCategorySelect}
-              />
-            ))}
+            {Object.keys(budgetData).map(category => <BudgetCategory key={category} category={category} items={budgetData[category]} onAddSubcategory={addSubcategory} onCategoryClick={handleCategorySelect} />)}
           </div>
 
           <div className="mt-8 p-4 bg-pink-100 rounded-lg text-center">
@@ -131,8 +102,6 @@ const Budget = () => {
           </div>
         </div>
       </div>
-    </>
-  );
+    </>;
 };
-
 export default Budget;
