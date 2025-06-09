@@ -31,6 +31,7 @@ export type VendorCategory =
   | 'entertainment'
   | 'beauty'
   | 'bakeries'
+  | 'bridal'
   | 'flowers'
   | 'transportation'
   | 'rentals'
