@@ -1,5 +1,5 @@
-
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BudgetData } from '@/types/budget';
 import BudgetChart from '@/components/BudgetChart';
 import BudgetPieChart from '@/components/BudgetPieChart';
@@ -7,13 +7,14 @@ import BudgetInput from '@/components/BudgetInput';
 import BudgetCategory from '@/components/BudgetCategory';
 import BudgetSummary from '@/components/BudgetSummary';
 import BudgetTemplates from '@/components/BudgetTemplates';
-import { Calculator, Download, Share2, Save, TrendingUp } from 'lucide-react';
+import { Calculator, Download, Share2, Save, TrendingUp, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Budget = () => {
   const [budgetData, setBudgetData] = useState<BudgetData>({});
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [totalBudget, setTotalBudget] = useState<number>(0);
+  const navigate = useNavigate();
 
   const addBudgetItem = (category: string, subcategory: string, cost: number) => {
     setBudgetData(prev => ({
@@ -84,13 +85,28 @@ const Budget = () => {
       
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50">
         <div className="container mx-auto px-4 py-8 max-w-7xl">
+          {/* Header with Home Button */}
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-4xl md:text-5xl font-display font-bold wedding-text-gradient">
+              Wedding Budget Planner
+            </h1>
+            <Button 
+              onClick={() => navigate('/')}
+              variant="outline"
+              className="flex items-center gap-2 border-wedding-pink/30 text-wedding-deep-rose hover:bg-wedding-pink hover:text-white"
+            >
+              <Home className="h-4 w-4" />
+              Home
+            </Button>
+          </div>
+
           {/* Hero Section */}
           <div className="text-center mb-12 animate-fade-in">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Calculator className="h-12 w-12 text-wedding-pink animate-float" />
-              <h1 className="text-5xl md:text-7xl font-display font-bold wedding-text-gradient">
+              <h2 className="text-3xl md:text-5xl font-display font-bold wedding-text-gradient">
                 Your Dream Wedding Budget
-              </h1>
+              </h2>
             </div>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
               Plan your perfect day with confidence. Create, track, and manage your wedding budget with our intelligent planning tools.
@@ -224,7 +240,10 @@ const Budget = () => {
             <p className="text-lg text-gray-600 mb-6">
               Discover amazing wedding professionals in Wellington County to bring your vision to life.
             </p>
-            <Button className="wedding-button-primary text-lg px-8 py-4">
+            <Button 
+              className="wedding-button-primary text-lg px-8 py-4"
+              onClick={() => navigate('/')}
+            >
               Browse Vendors Now
             </Button>
           </div>
