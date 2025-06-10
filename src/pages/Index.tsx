@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import VendorFilters from '@/components/VendorFilters';
 import VendorCard from '@/components/VendorCard';
 import VendorModal from '@/components/VendorModal';
+import CategoryGrid from '@/components/CategoryGrid';
 import { vendors } from '@/data/vendors';
 import { Vendor } from '@/types/vendor';
 import { VendorFilters as FilterType } from '@/types/vendor';
@@ -55,6 +56,8 @@ const Index = () => {
     { icon: Award, label: 'Years Experience', value: '10+' }
   ];
 
+  const showFiltersAndResults = searchQuery || Object.keys(filters).length > 0;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50">
       <Header onSearch={setSearchQuery} searchQuery={searchQuery} />
@@ -104,50 +107,61 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="animate-slide-up mb-8">
-          <VendorFilters filters={filters} onFiltersChange={setFilters} />
-        </div>
+        {/* Category Grid - Show when no search/filters */}
+        {!showFiltersAndResults && (
+          <CategoryGrid />
+        )}
 
-        {/* Results Header */}
-        <div className="flex items-center justify-between mb-8 animate-fade-in">
-          <div>
-            <p className="text-gray-600 text-lg">
-              Showing <span className="font-semibold text-wedding-deep-rose">{filteredVendors.length}</span> vendor{filteredVendors.length !== 1 ? 's' : ''}
-              {searchQuery && (
-                <span> for "<span className="font-semibold text-wedding-pink">{searchQuery}</span>"</span>
-              )}
-            </p>
+        {/* Filters - Show when searching/filtering */}
+        {showFiltersAndResults && (
+          <div className="animate-slide-up mb-8">
+            <VendorFilters filters={filters} onFiltersChange={setFilters} />
           </div>
-          
-          {filteredVendors.length > 0 && (
-            <Button 
-              variant="outline"
-              className="border-wedding-pink/30 text-wedding-deep-rose hover:bg-wedding-pink hover:text-white"
-            >
-              Sort by Rating
-            </Button>
-          )}
-        </div>
+        )}
 
-        {/* Vendor Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {filteredVendors.map((vendor, index) => (
-            <div 
-              key={vendor.id}
-              className="animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <VendorCard 
-                vendor={vendor} 
-                onClick={() => setSelectedVendor(vendor)} 
-              />
+        {/* Results Header - Show when searching/filtering */}
+        {showFiltersAndResults && (
+          <div className="flex items-center justify-between mb-8 animate-fade-in">
+            <div>
+              <p className="text-gray-600 text-lg">
+                Showing <span className="font-semibold text-wedding-deep-rose">{filteredVendors.length}</span> vendor{filteredVendors.length !== 1 ? 's' : ''}
+                {searchQuery && (
+                  <span> for "<span className="font-semibold text-wedding-pink">{searchQuery}</span>"</span>
+                )}
+              </p>
             </div>
-          ))}
-        </div>
+            
+            {filteredVendors.length > 0 && (
+              <Button 
+                variant="outline"
+                className="border-wedding-pink/30 text-wedding-deep-rose hover:bg-wedding-pink hover:text-white"
+              >
+                Sort by Rating
+              </Button>
+            )}
+          </div>
+        )}
 
-        {/* No Results */}
-        {filteredVendors.length === 0 && (
+        {/* Vendor Grid - Show when searching/filtering */}
+        {showFiltersAndResults && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {filteredVendors.map((vendor, index) => (
+              <div 
+                key={vendor.id}
+                className="animate-slide-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <VendorCard 
+                  vendor={vendor} 
+                  onClick={() => setSelectedVendor(vendor)} 
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* No Results - Show when searching/filtering with no results */}
+        {showFiltersAndResults && filteredVendors.length === 0 && (
           <div className="text-center py-16 animate-fade-in">
             <div className="max-w-md mx-auto">
               <Search className="h-16 w-16 text-gray-300 mx-auto mb-4" />
@@ -171,23 +185,21 @@ const Index = () => {
         )}
 
         {/* Bottom CTA */}
-        {filteredVendors.length > 0 && (
-          <div className="text-center py-12 glass-card rounded-xl animate-fade-in">
-            <h2 className="text-3xl font-display font-bold wedding-text-gradient mb-4">
-              Ready to Plan Your Budget?
-            </h2>
-            <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
-              Now that you've found some amazing vendors, let's help you plan and manage your wedding budget.
-            </p>
-            <Button 
-              className="wedding-button-primary text-lg px-8 py-4"
-              onClick={() => navigate('/budget')}
-            >
-              Start Budget Planning
-              <ArrowRight className="h-5 w-5 ml-2" />
-            </Button>
-          </div>
-        )}
+        <div className="text-center py-12 glass-card rounded-xl animate-fade-in">
+          <h2 className="text-3xl font-display font-bold wedding-text-gradient mb-4">
+            Ready to Plan Your Budget?
+          </h2>
+          <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+            Now that you've found some amazing vendors, let's help you plan and manage your wedding budget.
+          </p>
+          <Button 
+            className="wedding-button-primary text-lg px-8 py-4"
+            onClick={() => navigate('/budget')}
+          >
+            Start Budget Planning
+            <ArrowRight className="h-5 w-5 ml-2" />
+          </Button>
+        </div>
       </main>
 
       {/* Vendor Modal */}
