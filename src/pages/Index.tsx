@@ -5,10 +5,11 @@ import VendorFilters from '@/components/VendorFilters';
 import VendorCard from '@/components/VendorCard';
 import VendorModal from '@/components/VendorModal';
 import CategoryGrid from '@/components/CategoryGrid';
+import Footer from '@/components/Footer';
 import { vendors } from '@/data/vendors';
 import { Vendor } from '@/types/vendor';
 import { VendorFilters as FilterType } from '@/types/vendor';
-import { Search, Star, MapPin, Users, Award, ArrowRight } from 'lucide-react';
+import { Search, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,13 +50,6 @@ const Index = () => {
     });
   }, [searchQuery, filters]);
 
-  const stats = [
-    { icon: Users, label: 'Trusted Vendors', value: '150+' },
-    { icon: Star, label: 'Happy Couples', value: '500+' },
-    { icon: MapPin, label: 'Service Areas', value: '25+' },
-    { icon: Award, label: 'Years Experience', value: '10+' }
-  ];
-
   const showFiltersAndResults = searchQuery || Object.keys(filters).length > 0;
 
   return (
@@ -86,24 +80,6 @@ const Index = () => {
               Plan Your Budget
               <ArrowRight className="h-5 w-5 ml-2" />
             </Button>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div 
-                  key={stat.label}
-                  className="glass-card p-6 rounded-xl text-center animate-scale-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <Icon className="h-8 w-8 text-wedding-pink mx-auto mb-2" />
-                  <p className="text-2xl font-bold wedding-text-gradient">{stat.value}</p>
-                  <p className="text-sm text-gray-600 font-medium">{stat.label}</p>
-                </div>
-              );
-            })}
           </div>
         </div>
 
@@ -185,7 +161,7 @@ const Index = () => {
         )}
 
         {/* Bottom CTA */}
-        <div className="text-center py-12 glass-card rounded-xl animate-fade-in">
+        <div className="text-center py-12 glass-card rounded-xl animate-fade-in mb-16">
           <h2 className="text-3xl font-display font-bold wedding-text-gradient mb-4">
             Ready to Plan Your Budget?
           </h2>
@@ -200,7 +176,34 @@ const Index = () => {
             <ArrowRight className="h-5 w-5 ml-2" />
           </Button>
         </div>
+
+        {/* Simple Statistics Section */}
+        <div className="text-center py-8 border-t border-gray-200">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12 text-gray-600">
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-wedding-deep-rose">150+</span>
+              <span>Vendors</span>
+            </div>
+            <div className="hidden md:block w-px h-4 bg-gray-300"></div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-wedding-deep-rose">25+</span>
+              <span>Areas</span>
+            </div>
+            <div className="hidden md:block w-px h-4 bg-gray-300"></div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-wedding-deep-rose">10+</span>
+              <span>Years</span>
+            </div>
+            <div className="hidden md:block w-px h-4 bg-gray-300"></div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-wedding-deep-rose">500+</span>
+              <span>Couples</span>
+            </div>
+          </div>
+        </div>
       </main>
+
+      <Footer />
 
       {/* Vendor Modal */}
       <VendorModal 

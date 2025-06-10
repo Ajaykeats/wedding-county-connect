@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Heart, Users, Award, MapPin, Calendar, Star } from 'lucide-react';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const About = () => {
   const navigate = useNavigate();
@@ -146,6 +147,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
