@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Search, Menu, X, Heart, Calculator, Users, Calendar, MapPin, Home } from 'lucide-react';
+import { Search, Menu, X, Heart, Calculator, Users, Calendar, MapPin, Home, Info, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -20,6 +20,8 @@ const Header = ({
   
   const isVendorPage = location.pathname === '/';
   const isBudgetPage = location.pathname === '/budget';
+  const isAboutPage = location.pathname === '/about';
+  const isBlogPage = location.pathname === '/blog';
 
   const navigationItems = [
     {
@@ -29,22 +31,28 @@ const Header = ({
       active: isVendorPage
     },
     {
-      label: 'Budget Planner',
+      label: 'Vendors',
+      path: '/#vendors',
+      icon: Users,
+      active: false
+    },
+    {
+      label: 'About Us',
+      path: '/about',
+      icon: Info,
+      active: isAboutPage
+    },
+    {
+      label: 'Blog',
+      path: '/blog',
+      icon: BookOpen,
+      active: isBlogPage
+    },
+    {
+      label: 'Budgeting',
       path: '/budget',
       icon: Calculator,
       active: isBudgetPage
-    },
-    {
-      label: 'Venues',
-      path: '/#venues',
-      icon: MapPin,
-      active: false
-    },
-    {
-      label: 'Photography',
-      path: '/#photographers',
-      icon: Calendar,
-      active: false
     }
   ];
 
@@ -85,8 +93,8 @@ const Header = ({
             </div>
           </div>
 
-          {/* Desktop Navigation - Always visible and prominent */}
-          <nav className="hidden md:flex items-center space-x-2">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-1">
             {navigationItems.map((item) => {
               const Icon = item.icon;
               return (
@@ -126,9 +134,9 @@ const Header = ({
           <div className="hidden lg:block">
             <Button 
               className="wedding-button-primary hover:scale-105 transition-transform duration-200"
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/budget')}
             >
-              Get Started
+              Start Planning
             </Button>
           </div>
 
@@ -189,11 +197,11 @@ const Header = ({
               <Button 
                 className="w-full wedding-button-primary"
                 onClick={() => {
-                  navigate('/');
+                  navigate('/budget');
                   setIsMobileMenuOpen(false);
                 }}
               >
-                Get Started
+                Start Planning
               </Button>
             </div>
           </div>

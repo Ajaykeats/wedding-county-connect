@@ -7,8 +7,9 @@ import BudgetInput from '@/components/BudgetInput';
 import BudgetCategory from '@/components/BudgetCategory';
 import BudgetSummary from '@/components/BudgetSummary';
 import BudgetTemplates from '@/components/BudgetTemplates';
-import { Calculator, Download, Share2, Save, TrendingUp, Home } from 'lucide-react';
+import { Calculator, Download, Share2, Save, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Header from '@/components/Header';
 
 const Budget = () => {
   const [budgetData, setBudgetData] = useState<BudgetData>({});
@@ -49,6 +50,7 @@ const Budget = () => {
 
   return (
     <>
+      <Header />
       <style>{`
         body {
           background: linear-gradient(135deg, #fef7f8 0%, #ffdce5 50%, #f3e8ff 100%);
@@ -85,30 +87,25 @@ const Budget = () => {
       
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50">
         <div className="container mx-auto px-4 py-8 max-w-7xl">
-          {/* Header with Home Button */}
-          <div className="flex items-center justify-between mb-8">
+          {/* Main Header */}
+          <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-display font-bold wedding-text-gradient">
-              Wedding Budget Planner
+              Wedding Budget Management
             </h1>
-            <Button 
-              onClick={() => navigate('/')}
-              variant="outline"
-              className="flex items-center gap-2 border-wedding-pink/30 text-wedding-deep-rose hover:bg-wedding-pink hover:text-white"
-            >
-              <Home className="h-4 w-4" />
-              Home
-            </Button>
+            <p className="text-xl text-gray-600 mt-4 max-w-3xl mx-auto">
+              Professional budget planning tools to help you manage your wedding finances with confidence.
+            </p>
           </div>
 
           {/* Hero Section */}
           <div className="text-center mb-12 animate-fade-in">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Calculator className="h-12 w-12 text-wedding-pink animate-float" />
-              <h2 className="text-3xl md:text-5xl font-display font-bold wedding-text-gradient">
+              <h2 className="text-3xl md:text-4xl font-display font-bold wedding-text-gradient">
                 Your Dream Wedding Budget
               </h2>
             </div>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
               Plan your perfect day with confidence. Create, track, and manage your wedding budget with our intelligent planning tools.
             </p>
             
