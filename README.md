@@ -1,73 +1,94 @@
-# Welcome to your Lovable project
 
-## Project info
+# Wellington County Wedding Guide
 
-**URL**: https://lovable.dev/projects/15fde35c-d108-4b13-8388-685986e1889b
+A simple, static website for wedding planning and vendor discovery in Wellington County, Ontario.
 
-## How can I edit this code?
+## Files Structure
 
-There are several ways of editing your application.
+- `index.html` - Main homepage with hero section and category browsing
+- `budget.html` - Wedding budget planning tool
+- `style.css` - Main stylesheet with responsive design
+- `script.js` - Basic JavaScript for interactivity
+- `budget.js` - Budget tracker functionality
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/15fde35c-d108-4b13-8388-685986e1889b) and start prompting.
+- **Responsive Design**: Mobile-friendly layout that works on all devices
+- **Budget Planner**: Interactive tool to track wedding expenses
+- **Category Browsing**: Easy navigation for different vendor types
+- **Clean Design**: Modern, wedding-themed aesthetic
+- **No Dependencies**: Pure HTML, CSS, and JavaScript
 
-Changes made via Lovable will be committed automatically to this repo.
+## Converting to WordPress
 
-**Use your preferred IDE**
+This static site is designed to be easily converted to a WordPress theme:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### 1. File Structure for WordPress
+```
+wp-content/themes/wellington-wedding/
+├── index.php (from index.html)
+├── header.php (extract header section)
+├── footer.php (extract footer section)
+├── style.css (main stylesheet)
+├── functions.php (theme functions)
+├── page-budget.php (from budget.html)
+└── assets/
+    ├── js/
+    │   ├── script.js
+    │   └── budget.js
+    └── css/
+        └── additional styles if needed
 ```
 
-**Edit a file directly in GitHub**
+### 2. WordPress Conversion Steps
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. **Create header.php**: Extract the `<head>` and header HTML
+2. **Create footer.php**: Extract the footer HTML and closing tags
+3. **Convert HTML pages**: Replace with PHP template files
+4. **Add WordPress functions**: Use `get_header()`, `get_footer()`, etc.
+5. **Enqueue scripts/styles**: Use `wp_enqueue_script()` and `wp_enqueue_style()`
 
-**Use GitHub Codespaces**
+### 3. Key WordPress Functions to Add
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```php
+// In functions.php
+function wellington_wedding_scripts() {
+    wp_enqueue_style('wellington-style', get_stylesheet_uri());
+    wp_enqueue_script('wellington-script', get_template_directory_uri() . '/assets/js/script.js', array(), '1.0.0', true);
+}
+add_action('wp_enqueue_scripts', 'wellington_wedding_scripts');
+```
 
-## What technologies are used for this project?
+### 4. Database Integration (Optional)
+- Create custom post types for vendors
+- Add custom fields for budget tracking
+- Use WordPress forms for user submissions
 
-This project is built with:
+## Customization
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The design uses CSS custom properties (variables) for easy color theming:
+- Primary color: `#e91e63` (pink)
+- Secondary colors defined in CSS
+- Font families: Playfair Display (headings) and Inter (body)
 
-## How can I deploy this project?
+## Browser Support
 
-Simply open [Lovable](https://lovable.dev/projects/15fde35c-d108-4b13-8388-685986e1889b) and click on Share -> Publish.
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers
 
-## Can I connect a custom domain to my Lovable project?
+## Getting Started
 
-Yes, you can!
+1. Upload files to your web server
+2. Open `index.html` in a web browser
+3. Customize colors and content as needed
+4. For WordPress conversion, follow the steps above
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Notes
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- All images use placeholder SVGs or emojis for simplicity
+- JavaScript is vanilla (no jQuery required)
+- CSS uses Flexbox and Grid for layout
+- Mobile-first responsive design approach

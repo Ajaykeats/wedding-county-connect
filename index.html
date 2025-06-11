@@ -1,24 +1,209 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wedding-county-connect</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellington County Wedding Guide</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <div class="logo-text">
+                        <h1>Wellington County</h1>
+                        <p>Wedding Guide</p>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">Home</a>
+                    <a href="vendors.html">Vendors</a>
+                    <a href="about.html">About Us</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="budget.html">Budgeting</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    <meta property="og:title" content="wedding-county-connect" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Find Your Perfect Wedding Services</h1>
+                <p class="hero-subtitle">
+                    Discover amazing wedding professionals in Wellington County. From photographers to venues, 
+                    we'll help you create your dream wedding with confidence and style.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Browse Vendors</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='budget.html'">Plan Your Budget</button>
+                </div>
+            </div>
+        </section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+        <!-- Category Grid -->
+        <section class="categories">
+            <div class="container">
+                <h2 class="section-title">Browse by Category</h2>
+                <p class="section-subtitle">Find the perfect vendors for every aspect of your wedding day</p>
+                
+                <div class="category-grid">
+                    <div class="category-card">
+                        <div class="category-icon">📍</div>
+                        <h3>Wedding Venues</h3>
+                        <span class="category-count">12 vendors</span>
+                        <div class="category-link">Explore →</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">📸</div>
+                        <h3>Photographers</h3>
+                        <span class="category-count">25 vendors</span>
+                        <div class="category-link">Explore →</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🍽️</div>
+                        <h3>Catering</h3>
+                        <span class="category-count">18 vendors</span>
+                        <div class="category-link">Explore →</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🎵</div>
+                        <h3>Entertainment</h3>
+                        <span class="category-count">15 vendors</span>
+                        <div class="category-link">Explore →</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">💄</div>
+                        <h3>Beauty & Grooming</h3>
+                        <span class="category-count">20 vendors</span>
+                        <div class="category-link">Explore →</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🎂</div>
+                        <h3>Bakeries</h3>
+                        <span class="category-count">8 vendors</span>
+                        <div class="category-link">Explore →</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">👰</div>
+                        <h3>Bridal Shops</h3>
+                        <span class="category-count">10 vendors</span>
+                        <div class="category-link">Explore →</div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-icon">🌸</div>
+                        <h3>Florists</h3>
+                        <span class="category-count">16 vendors</span>
+                        <div class="category-link">Explore →</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+        <!-- Budget CTA -->
+        <section class="budget-cta">
+            <div class="container">
+                <div class="cta-card">
+                    <h2>Ready to Plan Your Budget?</h2>
+                    <p>Now that you've found some amazing vendors, let's help you plan and manage your wedding budget.</p>
+                    <button class="btn btn-primary" onclick="window.location.href='budget.html'">Start Budget Planning →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">150+</span>
+                        <span class="stat-label">Vendors</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">Areas</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Years</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Couples</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <div>
+                            <h3>Wellington County</h3>
+                            <p>Wedding Guide</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Your trusted partner in creating the perfect wedding in Wellington County. 
+                        We connect couples with exceptional vendors and provide the tools to plan your dream celebration.
+                    </p>
+                    <div class="footer-contact">
+                        <span>📍 Wellington County, ON</span>
+                        <span>✉️ hello@wellingtoncountyweddings.com</span>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="vendors.html">Vendors</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="budget.html">Budgeting</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Get in Touch</h4>
+                    <ul>
+                        <li>Plan your perfect day</li>
+                        <li>Join our vendor network</li>
+                        <li>Submit your wedding</li>
+                        <li>Get planning tips</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Wellington County Wedding Guide. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>

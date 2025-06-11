@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Budget Planner - Wellington County Wedding Guide</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <div class="logo-text">
+                        <h1>Wellington County</h1>
+                        <p>Wedding Guide</p>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <a href="index.html">Home</a>
+                    <a href="vendors.html">Vendors</a>
+                    <a href="about.html">About Us</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="budget.html" class="nav-active">Budgeting</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Wedding Budget Planner</h1>
+                <p class="hero-subtitle">
+                    Plan and track your wedding expenses with our easy-to-use budget tool. 
+                    Stay organized and stress-free as you plan your perfect day.
+                </p>
+            </div>
+        </section>
+
+        <!-- Budget Templates -->
+        <section class="budget-templates">
+            <div class="container">
+                <h2 class="section-title">Choose Your Budget Template</h2>
+                <p class="section-subtitle">Start with a template that matches your vision and guest count</p>
+                
+                <div class="template-grid">
+                    <div class="template-card" data-budget="15000">
+                        <div class="template-icon">💕</div>
+                        <h3>Intimate Gathering</h3>
+                        <p class="template-description">Perfect for small, cozy celebrations</p>
+                        <div class="template-budget">$15,000</div>
+                        <div class="template-guests">30-50 guests</div>
+                        <ul class="template-features">
+                            <li>Simple venue</li>
+                            <li>Close family & friends</li>
+                            <li>Elegant simplicity</li>
+                        </ul>
+                        <button class="btn btn-secondary template-select">Choose Template</button>
+                    </div>
+                    
+                    <div class="template-card" data-budget="35000">
+                        <div class="template-icon">👥</div>
+                        <h3>Classic Wedding</h3>
+                        <p class="template-description">Traditional celebration with all essentials</p>
+                        <div class="template-budget">$35,000</div>
+                        <div class="template-guests">75-125 guests</div>
+                        <ul class="template-features">
+                            <li>Full reception</li>
+                            <li>Professional photography</li>
+                            <li>Live music</li>
+                        </ul>
+                        <button class="btn btn-secondary template-select">Choose Template</button>
+                    </div>
+                    
+                    <div class="template-card" data-budget="60000">
+                        <div class="template-icon">👑</div>
+                        <h3>Luxury Experience</h3>
+                        <p class="template-description">Premium wedding with luxury touches</p>
+                        <div class="template-budget">$60,000</div>
+                        <div class="template-guests">100-150 guests</div>
+                        <ul class="template-features">
+                            <li>Premium venue</li>
+                            <li>Gourmet catering</li>
+                            <li>Full planning service</li>
+                        </ul>
+                        <button class="btn btn-secondary template-select">Choose Template</button>
+                    </div>
+                    
+                    <div class="template-card" data-budget="100000">
+                        <div class="template-icon">✨</div>
+                        <h3>Dream Wedding</h3>
+                        <p class="template-description">No expense spared for your perfect day</p>
+                        <div class="template-budget">$100,000</div>
+                        <div class="template-guests">150+ guests</div>
+                        <ul class="template-features">
+                            <li>Destination venue</li>
+                            <li>Celebrity vendors</li>
+                            <li>Unlimited options</li>
+                        </ul>
+                        <button class="btn btn-secondary template-select">Choose Template</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Budget Tracker -->
+        <section class="budget-tracker" id="budget-tracker" style="display: none;">
+            <div class="container">
+                <div class="budget-header">
+                    <h2>Your Wedding Budget</h2>
+                    <div class="budget-summary">
+                        <div class="budget-total">
+                            <span>Total Budget: </span>
+                            <span id="total-budget">$0</span>
+                        </div>
+                        <div class="budget-spent">
+                            <span>Spent: </span>
+                            <span id="total-spent">$0</span>
+                        </div>
+                        <div class="budget-remaining">
+                            <span>Remaining: </span>
+                            <span id="remaining-budget">$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="budget-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">0% used</span>
+                </div>
+
+                <div class="budget-categories">
+                    <div class="add-category">
+                        <h3>Add Budget Item</h3>
+                        <form id="budget-form">
+                            <div class="form-group">
+                                <label for="category">Category:</label>
+                                <select id="category" required>
+                                    <option value="">Select category</option>
+                                    <option value="Venue">Venue</option>
+                                    <option value="Catering">Catering</option>
+                                    <option value="Photography">Photography</option>
+                                    <option value="Flowers">Flowers</option>
+                                    <option value="Music">Music</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Attire">Attire</option>
+                                    <option value="Beauty">Beauty</option>
+                                    <option value="Miscellaneous">Miscellaneous</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="item-name">Item:</label>
+                                <input type="text" id="item-name" placeholder="e.g., Wedding venue rental" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cost">Cost:</label>
+                                <input type="number" id="cost" placeholder="0.00" step="0.01" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Item</button>
+                        </form>
+                    </div>
+
+                    <div class="budget-items" id="budget-items">
+                        <!-- Budget items will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <div>
+                            <h3>Wellington County</h3>
+                            <p>Wedding Guide</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Your trusted partner in creating the perfect wedding in Wellington County.
+                    </p>
+                    <div class="footer-contact">
+                        <span>📍 Wellington County, ON</span>
+                        <span>✉️ hello@wellingtoncountyweddings.com</span>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="vendors.html">Vendors</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="budget.html">Budgeting</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Get in Touch</h4>
+                    <ul>
+                        <li>Plan your perfect day</li>
+                        <li>Join our vendor network</li>
+                        <li>Submit your wedding</li>
+                        <li>Get planning tips</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Wellington County Wedding Guide. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="budget.js"></script>
+</body>
+</html>
